@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Alphabet counter</title>
+	<style type="text/css">
+	body {
+		overflow: auto;
+		font-family: 'Futura' , 'sans serif';
+		font-size: 30px;
+		margin: 0;
+	}
+	h1 {
+		margin: 0;
+		padding-top: 60px;
+	}
+	h3 {
+		margin-top: 30px;
+		padding: 0;
+	}
+	h4 {
+		line-height: 80%;
+		margin: 0;
+		padding-top: 0;
+		padding-bottom: 40px;
+	}
+	h5 {
+		line-height: 80%;
+		margin-top: 40px;
+		margin-bottom: 5px;
+		padding: 0;
+	}
+	input[type=text] {
+		width: 40%;
+		height: 40px;
+		font-size: 20px;
+		border-radius: 20px;
+		min-width: 600px;
+		padding-left: 20px;
+		box-shadow: 0 0 20px rgba(0,0,0,0.7);
+		border:none;
+	}
+
+	input:focus {
+		border: 2px solid rgb(78,78,78);
+		outline: none;
+	}
+
+	button {
+		background: rgb(0,114,188);
+		color: white;
+		font-size: 40px;
+		font-weight: bold;
+		padding: auto;
+		border-radius: 8px;
+		text-decoration: none;
+		border:none;
+		outline: none;
+		margin: 5px auto;
+		width: 100px;
+		height: 100px;
+	}
+	button:hover {
+  		background: #3cb0fd;
+  		text-decoration: none;
+	}
+
+	#result {
+		font-size: 500%;
+		font-weight: bold;
+		line-height: 40%;
+	}
+	.header {
+		text-align: center;
+		background: rgb(78,78,78);
+		color: white;
+	}
+	.con {
+		width: 320px;
+	}
+	.inputtext {
+		background: linear-gradient(to bottom, rgb(78,78,78) 0%,rgb(78,78,78) 50%,white 50%,white 100%);
+		text-align: center;
+	}
+	.container {
+		margin-top: 20px;
+		text-align: center;
+		color : rgb(0,114,188);
+	}
+	.clicked {
+		overflow: auto;
+		background: rgb(6,71,113);
+		font-size: 45px;
+		color:white;
+	}
+	</style>
+</head>
+<body>
+
+<div class="header">
+	<h1>ALPHABET COUNTER</h1>
+	<h4>just text and click the buttons!</h4>
+</div>
+
+<div class="inputtext" class="u">
+	<input type="text" id="textbox" value="This program will calculate number of characters from your filter" placeholder="text here">
+</div>
+	
+<div class="container">
+	<h5>SELECT YOUR FILTER</h5>
+	<button id="a">A</button>
+	<button id="e">E</button>
+	<button id="i">I</button>
+	<button id="o">O</button><br>
+	<button id="u">U</button>
+	<button class="con" id="con">CONSONANT</button>
+
+	<h3>NUMBER OF <span id="filter">CHARACTERs</span></h3>
+	<span id="result">0</span>
+</div>
+
+<script type="text/javascript">
+
+	var textBox = document.getElementById('textbox');
+	var result = document.getElementById('result');
+	var text = textBox.value;
+
+	var charData = {
+		a: {
+			button : document.getElementById('a'),
+			isClick:false,
+			num : function(str){
+				var count = str.match(/[a]/ig);
+				return (count==null)? 0 : count.length;;
+			}
+		},
+		e: {
+			button : document.getElementById('e'),
+			isClick : false,
+			num : function(str){
+				var count = str.match(/[e]/ig);
+				return (count==null)? 0 : count.length;;
+			}
+		},
+		i: {
+			button : document.getElementById('i'),
+			isClick : false,
+			num : function(str){
+				var count = str.match(/[i]/ig);
+				return (count==null)? 0 : count.length;;
+			}
+		},
+		o: {
+			button : document.getElementById('o'),
+			isClick : false,
+			num : function(str){
+				var count = str.match(/[o]/ig);
+				return (count==null)? 0 : count.length;;
+			}
+		},
+		u: {
+			button : document.getElementById('u'),
+			isClick : false,
+			num : function(str){
+				var count = str.match(/[u]/ig);
+				return (count==null)? 0 : count.length;;
+			}
+		},
+		con: {
+			button : document.getElementById('con'),
+		 	isClick : false,
+		 	num : function(str){
+				var count = str.match(/[bcdfghjklmnpqrstvwxyz]/ig);
+				return (count==null)? 0 : count.length;;
+			}
+		}
+	};
+	
+	function calculateChar() {
+		text = textBox.value;
+		var sum = 0;
+		for(var obj in charData){
+			var key = charData[obj];
+			if(key.isClick){
+				sum += key.num(text);
+			}
+		}
+		result.textContent = sum;
+	}
+	
+
+	textBox.addEventListener("change",function(){
+		calculateChar();
+	});
+
+		(charData['a'].button).addEventListener("click",function(){
+			charData['a'].isClick = !charData['a'].isClick;
+			charData['a'].button.classList.toggle('clicked');
+			calculateChar();
+		});
+		(charData['e'].button).addEventListener("click",function(){
+			charData['e'].isClick = !charData['e'].isClick;
+			charData['e'].button.classList.toggle('clicked');
+			calculateChar();
+		});
+		(charData['i'].button).addEventListener("click",function(){
+			charData['i'].isClick = !charData['i'].isClick;
+			charData['i'].button.classList.toggle('clicked');
+			calculateChar();
+		});
+		(charData['o'].button).addEventListener("click",function(){
+			charData['o'].isClick = !charData['o'].isClick;
+			charData['o'].button.classList.toggle('clicked');
+			calculateChar();
+		});
+		(charData['u'].button).addEventListener("click",function(){
+			charData['u'].isClick = !charData['u'].isClick;
+			charData['u'].button.classList.toggle('clicked');
+			calculateChar();
+		});
+		(charData['con'].button).addEventListener("click",function(){
+			charData['con'].isClick = !charData['con'].isClick;
+			charData['con'].button.classList.toggle('clicked');
+			calculateChar();
+		});
+		(charData['a'].button).click();
+		(charData['e'].button).click();
+		(charData['i'].button).click();
+		(charData['o'].button).click();
+		(charData['u'].button).click();
+</script>
+</body>
+</html>
